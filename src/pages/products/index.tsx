@@ -2,6 +2,7 @@ import logoUrl from '@/assets/images/niuza.jpg';
 import SellerOutline from '@/components/SellerOutline';
 import ShopCart from '@/components/ShopCart';
 import TreeList, { ICategory } from '@/components/TreeList';
+import request from '@/utils/request';
 import { Tabs } from 'antd-mobile';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -64,6 +65,12 @@ function renderTabBar(props: any) {
 
 @observer
 export default class Products extends React.Component<IProducts> {
+
+  async componentDidMount() {
+    const d: any = await request('/product/1');
+    console.log(d);
+  }
+
   render() {
     const description = '本店有精选牛杂汤粉面，各种牛杂小吃和丸子，选择多多，惊喜多多！' +
       '注：本店牛杂分两种：招牌牛杂（牛肠、牛肺），精品牛杂（牛肚、牛腩、牛筋），特别提醒萝卜干口味是特辣。';
