@@ -13,7 +13,7 @@ after_script:
   - git init
   - git add -A
   - git commit -m "Deploy"
-  - git push -f "https://${GH_TOKEN}@github.com/OOAD-Project/Dashboard-FE.git" master:gh-pages
+  - git push -f "https://${GH_TOKEN}@github.com/OOAD-Project//EasyOrder-FE.git" master:gh-pages
 
 branches:
   only:
