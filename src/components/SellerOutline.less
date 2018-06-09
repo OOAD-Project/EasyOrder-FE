@@ -1,0 +1,74 @@
+@import "../default";
+
+.container {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: @top-header-height;
+  background-color: #444;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.container_blur_wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.container_blur {
+  filter: blur(15px);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: center / cover fixed no-repeat;
+  z-index: -1;
+}
+
+.navigation {
+  height: 50px;
+  padding: .8rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detail_container {
+  position: relative;
+}
+
+.meta {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0 1rem;
+}
+
+.logo {
+  float: left;
+  width: 5rem;
+  height: 5rem;
+  border-radius: @radius-md;
+  background: center / cover;
+  box-shadow: 0 0 3px #444;
+}
+
+.title {
+  color: @color-text-base-inverse;
+  font-size: @font-size-heading;
+  margin-bottom: .5rem;
+}
+
+.description {
+  color: fade(@color-text-base-inverse, 80%);
+  font-size: @font-size-base;
+  height: 2rem;
+  overflow: hidden;
+}

@@ -1,0 +1,96 @@
+@import "../default";
+
+.container {
+  position: relative;
+}
+
+.search_bar_wrapper {
+}
+
+.list {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.left {
+  flex-basis: 5rem;
+}
+
+.right {
+  width: calc(~'100vw - 5rem');
+}
+
+.meta {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.product_img {
+  flex-basis: @product-image-size;
+  width: @product-image-size;
+  margin-right: 15px;
+  > img {
+    width: @product-image-size;
+    height: @product-image-size;
+  }
+}
+
+.content {
+  width: calc(~'100% - (@{product-image-size} + 15px)');
+}
+
+.price_container {
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: bolder;
+  font-size: @font-size-base;
+  margin-bottom: 6px;
+}
+
+.brief {
+  font-size: @font-size-caption-sm;
+  color: @color-text-caption;
+}
+
+.price {
+  color: @brand-important;
+  font-weight: bold;
+  &::before {
+    font-weight: 400;
+    content: "\A5";
+    font-size: .32rem;
+    color: @brand-important;
+    margin-right: .053333rem;
+    display: inline-block;
+  }
+}
+
+.plus {
+  background-color: @brand-primary;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: @font-size-heading;
+  transition: all .3s;
+  cursor: pointer;
+  &:hover {
+    background-color: darken(@brand-primary, 10%);
+  }
+}
+
+:global {
+
+  // bug fix in https://github.com/ant-design/ant-design-mobile/pull/2510/files?utf8=%E2%9C%93&diff=split
+  .am-search-clear, .am-search-synthetic-ph {
+    box-sizing: content-box;
+  }
+}

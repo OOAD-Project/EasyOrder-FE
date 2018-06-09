@@ -1,0 +1,76 @@
+@import "../default";
+
+.container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #444;
+  display: flex;
+  flex-flow: row nowrap;
+  color: @color-text-secondary;
+}
+
+.shopcart_wrapper {
+  position: fixed;
+  bottom: .5rem;
+  left: 0;
+  width: 5rem;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.shopcart {
+  z-index: 100;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: mix(#e3e3e3, gray);
+  box-shadow: 0 0 3px white;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bolder;
+  color: white;
+}
+
+.shopcart_selected {
+  background-color: @brand-primary;
+  color: @color-text-base;
+  box-shadow: 0 0 3px @brand-primary;
+}
+
+.meta {
+  flex-grow: 1;
+  margin-left: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.deal {
+  flex-basis: 6rem;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s;
+}
+
+.deal_selected {
+  background-color: @brand-primary;
+  color: @color-text-base;
+  &:hover {
+    background-color: darken(@brand-primary, 10%);
+  }
+}
+
+.total_price {
+  color: @color-text-base-inverse;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin-right: 6px;
+  &::before {
+    content: '￥';
+  }
+}
