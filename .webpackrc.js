@@ -6,7 +6,7 @@ export default {
       define: {
         'BASE_URL': '/EasyOrder-FE/'
       },
-      publicPath: '/EasyOrder-FE/static'
+      publicPath: '/EasyOrder-FE/static/'
     }
   },
   theme: {
