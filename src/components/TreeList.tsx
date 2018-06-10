@@ -1,31 +1,15 @@
-import { List, SearchBar } from 'antd-mobile';
+import { ProductType } from '@/stores/products';
+import { List } from 'antd-mobile';
 import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Sticky, StickyContainer } from 'react-sticky';
 import styles from './TreeList.less';
 
 const Item = List.Item;
 
-export interface IGood {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  salesPerMonth: number;
-  likes: number;
-}
-
-export interface ICategory {
-  id: string;
-  category: string;
-  description?: string;
-  goods: IGood[];
-}
-
 interface ITreeListProps {
-  dataSource: ICategory[];
+  dataSource: ProductType[];
+  tagIds: number[];
 }
 
 @observer
@@ -33,9 +17,9 @@ export default class TreeList extends React.Component<ITreeListProps> {
 
   @computed
   get Categories() {
-    const list = this.props.dataSource.map(({ id, category }) => (
-      <Item key={ id }>
-        { category }
+    const list = this.props.tagIds.map((tagId) => (
+      <Item key={ tagId }>
+        { tagId }
       </Item>
     ));
     return (<List>{ list }</List>);
@@ -43,20 +27,17 @@ export default class TreeList extends React.Component<ITreeListProps> {
 
   @computed
   get Products() {
-    const list = this.props.dataSource.map(({ id, category, description, goods }) => {
-      const renderHeader = () => (
-        <span><strong>{ category }</strong>{ description }</span>
-      );
-      const renderGoods = goods.map((good) => (
+    const list = this.props.dataSource.map((good) => {
+      return (
         <Item key={ good.id } align={ 'top' } multipleLine={ true }>
           <div className={ styles.meta }>
             <div className={ styles.product_img }>
-              <img src={ good.imageUrl } alt={ good.name }/>
+              <img src={ good.picture } alt={ good.name }/>
             </div>
             <div className={ styles.content }>
               <div className={ styles.title }>{ good.name }</div>
               <div className={ styles.brief }>{ good.description }</div>
-              <div className={ styles.brief }>月售{ good.salesPerMonth } 赞{ good.likes }</div>
+              <div className={ styles.brief }>月售{ good.sales_permonth } 赞{ good.likes }</div>
               <div className={ styles.price_container }>
                 <div className={ styles.price }>{ good.price }</div>
                 <div className={ styles.plus }>+</div>
@@ -64,11 +45,6 @@ export default class TreeList extends React.Component<ITreeListProps> {
             </div>
           </div>
         </Item>
-      ));
-      return (
-        <List key={ id } renderHeader={ renderHeader }>
-          { renderGoods }
-        </List>
       );
     });
     return (<List>{ list }</List>);
