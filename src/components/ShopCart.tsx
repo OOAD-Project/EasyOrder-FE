@@ -1,5 +1,5 @@
 import { CartType } from '@/stores/cart';
-import { Badge, List, Modal } from 'antd-mobile';
+import { Badge, Button, List, Modal } from 'antd-mobile';
 import classnames from 'classnames';
 import { action, computed, observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
@@ -86,13 +86,16 @@ export default class ShopCart extends React.Component<IShopCartProps> {
           <span className={ styles.total_price }>{ $cart!.total }</span>
           <span className={ styles.description }>超级美食</span>
         </div>
-        <div className={ classnames(styles.deal, $cart!.list.length && styles.deal_selected) }>
+        <div
+          className={ classnames(styles.deal, $cart!.list.length && styles.deal_selected) }
+          onClick={ this.handleClickListButton }
+        >
           <span>去结算</span>
         </div>
         <Modal
           visible={ this.listVisible }
           transparent={ true }
-          title={ '购物车' }
+          title={ '1号餐桌' }
           maskClosable={ true }
           onClose={ this.handleCloseList }
         >
@@ -100,6 +103,9 @@ export default class ShopCart extends React.Component<IShopCartProps> {
           <div style={ { marginTop: '.5rem' } }>
             <span>合计</span>
             <span className={ styles.total }>{ $cart!.total }</span>
+          </div>
+          <div style={ { marginTop: '.5rem' } }>
+            <Button size={ 'small' } type={ 'primary' } disabled={ !$cart!.list.length }>OK，去支付</Button>
           </div>
         </Modal>
       </div>

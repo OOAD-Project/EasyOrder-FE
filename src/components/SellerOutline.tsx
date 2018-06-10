@@ -1,5 +1,3 @@
-import { Icon, NavBar } from 'antd-mobile';
-import classnames from 'classnames';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
