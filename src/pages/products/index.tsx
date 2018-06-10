@@ -7,7 +7,6 @@ import { Tabs } from 'antd-mobile';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteConfigComponentProps } from 'react-router-config';
-import { Sticky, StickyContainer } from 'react-sticky';
 import styles from './index.less';
 
 interface IProducts extends RouteConfigComponentProps<{}> {
@@ -19,21 +18,6 @@ const tabs = [
   { title: '评价' },
   { title: '商家' }
 ];
-
-function renderTabBar(props: any) {
-  const content = ({ style }: any) => {
-    return (
-      <div style={ { ...style, zIndex: 1 } }>
-        <Tabs.DefaultTabBar { ...props } />
-      </div>
-    );
-  };
-  return (
-    <Sticky>
-      { content }
-    </Sticky>
-  );
-}
 
 @inject('$products')
 @observer
@@ -51,22 +35,19 @@ export default class Products extends React.Component<IProducts> {
       <div>
         <SellerOutline logoUrl={ logoUrl } title={ '超级牛杂铺' } description={ description }/>
         <main className={ styles.container }>
-          <StickyContainer data-type={ 'sticky-container' } className={ styles.sticky_container }>
-            <Tabs
-              tabs={ tabs }
-              renderTabBar={ renderTabBar }
-            >
-              <div className={ styles.one_tab }>
-                <TreeList dataSource={ $products!.products } tagIds={ $products!.tagIds }/>
-              </div>
-              <div className={ styles.one_tab }>
-                Content of second tab
-              </div>
-              <div className={ styles.one_tab }>
-                Content of third tab
-              </div>
-            </Tabs>
-          </StickyContainer>
+          <Tabs
+            tabs={ tabs }
+          >
+            <div className={ styles.one_tab }>
+              <TreeList dataSource={ $products!.products } tagIds={ $products!.tagIds }/>
+            </div>
+            <div className={ styles.one_tab }>
+              Content of second tab
+            </div>
+            <div className={ styles.one_tab }>
+              Content of third tab
+            </div>
+          </Tabs>
         </main>
         <ShopCart/>
       </div>
