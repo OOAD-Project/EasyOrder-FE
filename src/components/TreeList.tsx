@@ -1,5 +1,5 @@
 import { ProductType } from '@/stores/products';
-import { List } from 'antd-mobile';
+import { List, SearchBar } from 'antd-mobile';
 import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { MouseEventHandler } from 'react';
@@ -18,12 +18,18 @@ export default class TreeList extends React.Component<ITreeListProps> {
   @observable
   filter: 'all' | number = 'all';
 
+  @observable
+  searchText = '';
+
   @computed
   get data() {
     const { dataSource } = this.props;
-    return this.filter === 'all'
+    const afterTag = this.filter === 'all'
       ? dataSource
       : dataSource.filter(({ tag_id }) => tag_id === this.filter);
+    return this.searchText.length
+      ? afterTag.filter(({ name }) => name.includes(this.searchText))
+      : afterTag;
   }
 
   @computed
@@ -89,9 +95,19 @@ export default class TreeList extends React.Component<ITreeListProps> {
     }
   }
 
+  @action
+  handleChangeSearchText = (value: string) => {
+    this.searchText = value;
+  }
+
   render() {
     return (
       <div className={ styles.container }>
+        <SearchBar
+          placeholder={ '寻找美食' }
+          value={ this.searchText }
+          onChange={ this.handleChangeSearchText }
+        />
         <div className={ styles.list }>
           <div className={ styles.left }>
             { this.Categories }
