@@ -74,3 +74,79 @@
     content: '￥';
   }
 }
+
+.listContainer {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.total {
+  text-align: center;
+  color: @brand-important;
+  font-weight: bold;
+  margin-left: .5rem;
+  font-size: 1.1rem;
+  &::before {
+    font-weight: 400;
+    content: "\A5";
+    font-size: .52rem;
+    color: @brand-important;
+    margin-right: .053333rem;
+    display: inline-block;
+  }
+}
+
+.price {
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+  color: @brand-important;
+  font-weight: bold;
+  &::before {
+    font-weight: 400;
+    content: "\A5";
+    font-size: .32rem;
+    color: @brand-important;
+    margin-right: .053333rem;
+    display: inline-block;
+  }
+}
+
+.count {
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+  color: @color-text-base;
+  font-weight: bold;
+
+  &::after {
+    font-weight: 400;
+    content: "个";
+    font-size: .32rem;
+    color: @color-text-base;
+    margin-right: .053333rem;
+    display: inline-block;
+  }
+}
+
+.itemName {
+  display: inline-block;
+  width: 30%;
+}
+
+.plus {
+  background-color: @brand-primary;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: @font-size-heading;
+  transition: all .3s;
+  cursor: pointer;
+  &:hover {
+    background-color: darken(@brand-primary, 10%);
+  }
+}

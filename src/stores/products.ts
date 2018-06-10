@@ -34,7 +34,6 @@ export const Products = types
   .actions((self) => ({
     LoadProductsAsync: flow(function* LoadCoursesAsync() {
       const { data }: AxiosResponse<{ result: ProductType[] }> = yield request.get('/products');
-      console.log(data);
       self.products.clear();
       self.products.push(...data.result);
     })

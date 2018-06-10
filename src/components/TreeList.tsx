@@ -1,7 +1,8 @@
+import { CartType } from '@/stores/cart';
 import { ProductType } from '@/stores/products';
 import { List, SearchBar } from 'antd-mobile';
 import { action, computed, observable } from 'mobx';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { MouseEventHandler } from 'react';
 import styles from './TreeList.less';
 
@@ -10,8 +11,10 @@ const Item = List.Item;
 interface ITreeListProps {
   dataSource: ProductType[];
   tagIds: number[];
+  $cart?: CartType;
 }
 
+@inject('$cart')
 @observer
 export default class TreeList extends React.Component<ITreeListProps> {
 
@@ -78,7 +81,7 @@ export default class TreeList extends React.Component<ITreeListProps> {
               </div>
               <div className={ styles.price_container }>
                 <div className={ styles.price }>{ good.price }</div>
-                <div className={ styles.plus }>+</div>
+                <div className={ styles.plus } onClick={ this.handleClickAdd(good) }>+</div>
               </div>
             </div>
           </div>
@@ -98,6 +101,11 @@ export default class TreeList extends React.Component<ITreeListProps> {
   @action
   handleChangeSearchText = (value: string) => {
     this.searchText = value;
+  }
+
+  handleClickAdd: (good: ProductType) => MouseEventHandler<HTMLDivElement> = (good) => (e) => {
+    const { $cart } = this.props;
+    $cart!.add(good, 1);
   }
 
   render() {
