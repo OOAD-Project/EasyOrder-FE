@@ -1,0 +1,48 @@
+@import "../../default";
+
+.container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #444;
+  display: flex;
+  flex-flow: row nowrap;
+  color: @color-text-secondary;
+}
+
+.deal {
+  flex-basis: 6rem;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s;
+}
+
+.deal_selected {
+  background-color: @brand-primary;
+  color: @color-text-base;
+  &:hover {
+    background-color: darken(@brand-primary, 10%);
+  }
+}
+
+.total_price {
+  color: @color-text-base-inverse;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin-right: 6px;
+  &::before {
+    content: '￥';
+  }
+}
+
+.meta {
+  flex-grow: 1;
+  margin-left: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

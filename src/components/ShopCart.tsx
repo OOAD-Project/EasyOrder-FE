@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { action, computed, observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React, { MouseEventHandler } from 'react';
+import router from 'umi/router';
 import styles from './ShopCart.less';
 
 interface IShopCartProps {
@@ -69,6 +70,13 @@ export default class ShopCart extends React.Component<IShopCartProps> {
     this.listVisible = true;
   }
 
+  handleClickSumUp: MouseEventHandler<HTMLElement> = (e) => {
+    const { $cart } = this.props;
+    if ($cart!.list.length) {
+      router.push('/order');
+    }
+  }
+
   getHandleClickCountSetter: (id: number, count: number) =>
     MouseEventHandler<HTMLSpanElement> = (id: number, count: number) => (e) => {
     const { $cart } = this.props;
@@ -88,7 +96,7 @@ export default class ShopCart extends React.Component<IShopCartProps> {
         </div>
         <div
           className={ classnames(styles.deal, $cart!.list.length && styles.deal_selected) }
-          onClick={ this.handleClickListButton }
+          onClick={ this.handleClickSumUp }
         >
           <span>去结算</span>
         </div>
@@ -105,7 +113,13 @@ export default class ShopCart extends React.Component<IShopCartProps> {
             <span className={ styles.total }>{ $cart!.total }</span>
           </div>
           <div style={ { marginTop: '.5rem' } }>
-            <Button size={ 'small' } type={ 'primary' } disabled={ !$cart!.list.length }>OK，去支付</Button>
+            <Button
+              size={ 'small' }
+              disabled={ !$cart!.list.length }
+              onClick={ this.handleClickSumUp }
+            >
+              OK，去支付
+            </Button>
           </div>
         </Modal>
       </div>

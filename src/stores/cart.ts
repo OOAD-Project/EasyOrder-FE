@@ -1,15 +1,13 @@
-import { ProductType } from '@/stores/products';
-import { types } from 'mobx-state-tree';
+import { Product, ProductType } from '@/stores/products';
+import { getSnapshot, types } from 'mobx-state-tree';
 
 const CartItem = types
-  .model('CartItem', {
-    id: types.number,
-    name: types.string,
-    count: types.number,
-    price: types.number
-  });
+  .compose(Product, types.model({
+    count: types.number
+  }))
+  .named('CartItem');
 
-type CartItemType = typeof CartItem.Type;
+export type CartItemType = typeof CartItem.Type;
 
 export const Cart = types
   .model('Cart', {
@@ -27,10 +25,8 @@ export const Cart = types
         target.count += count;
       } else {
         self.list.push(CartItem.create({
-          id: product.id,
-          name: product.name,
-          count,
-          price: product.price
+          ...getSnapshot(product),
+          count
         }));
       }
     },
