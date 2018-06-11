@@ -15,7 +15,9 @@ interface IAppLayout extends RouteConfigComponentProps<{}> {
 export default class AppLayout extends React.Component<IAppLayout> {
 
   componentDidMount() {
-    stores.$global.setTable(3);
+    stores.$global.setTable(
+      Math.floor(1 + Math.random() * 10)
+    );
   }
 
   render() {
