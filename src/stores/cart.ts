@@ -1,7 +1,8 @@
+import { OrderBodySnapshotType, SimpleListItem } from '@/stores/orders';
 import { Product, ProductType } from '@/stores/products';
 import { getSnapshot, types } from 'mobx-state-tree';
 
-const CartItem = types
+export const CartItem = types
   .compose(Product, types.model({
     count: types.number
   }))
@@ -16,6 +17,14 @@ export const Cart = types
   .views((self) => ({
     get total(): number {
       return self.list.reduce((total: number, { price, count }: CartItemType) => total + price * count, 0);
+    },
+    orderBody(tableNum: number): OrderBodySnapshotType {
+      const list = self.list.map((cartItem) => getSnapshot(SimpleListItem.create(getSnapshot(cartItem))));
+      console.log('snapshot list', list);
+      return {
+        table: tableNum,
+        list
+      };
     }
   }))
   .actions((self) => ({
