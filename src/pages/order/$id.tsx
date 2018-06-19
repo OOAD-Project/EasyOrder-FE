@@ -7,7 +7,6 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteConfigComponentProps } from 'react-router-config';
 import Link from 'umi/link';
-import router from 'umi/router';
 
 interface IOrderWithIdProps extends RouteConfigComponentProps<{ id: string }> {
   $orders?: OrdersType;
