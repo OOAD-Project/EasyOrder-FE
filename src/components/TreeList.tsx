@@ -10,7 +10,7 @@ const Item = List.Item;
 
 interface ITreeListProps {
   dataSource: ProductType[];
-  tagIds: number[];
+  categories: string[];
   $cart?: CartType;
 }
 
@@ -19,7 +19,7 @@ interface ITreeListProps {
 export default class TreeList extends React.Component<ITreeListProps> {
 
   @observable
-  filter: 'all' | number = 'all';
+  filter: 'all' | string = 'all';
 
   @observable
   searchText = '';
@@ -29,7 +29,7 @@ export default class TreeList extends React.Component<ITreeListProps> {
     const { dataSource } = this.props;
     const afterTag = this.filter === 'all'
       ? dataSource
-      : dataSource.filter(({ tag_id }) => tag_id === this.filter);
+      : dataSource.filter(({ category }) => category === this.filter);
     return this.searchText.length
       ? afterTag.filter(({ name }) => name.includes(this.searchText))
       : afterTag;
@@ -37,14 +37,14 @@ export default class TreeList extends React.Component<ITreeListProps> {
 
   @computed
   get Categories() {
-    const { tagIds } = this.props;
-    const base = tagIds.map((tagId) => (
-      <Item key={ tagId }>
+    const { categories } = this.props;
+    const base = categories.map((category) => (
+      <Item key={ category }>
         <div
-          data-tag={ tagId }
+          data-category={ category }
           className={ styles.tagId }
           onClick={ this.handleClickFilter }
-        >{ tagId }
+        >{ category }
         </div>
       </Item>
     ));
@@ -52,7 +52,7 @@ export default class TreeList extends React.Component<ITreeListProps> {
       (
         <Item key={ 'all' }>
           <div
-            data-tag={ 'all' }
+            data-category={ 'all' }
             className={ styles.tagId }
             onClick={ this.handleClickFilter }
           >{ '全部' }
@@ -71,13 +71,13 @@ export default class TreeList extends React.Component<ITreeListProps> {
         <Item key={ good.id } align={ 'top' } multipleLine={ true }>
           <div className={ styles.meta }>
             <div className={ styles.product_img }>
-              <img src={ good.picture } alt={ good.name }/>
+              <img src={ good.imageUrl } alt={ good.name }/>
             </div>
             <div className={ styles.content }>
               <div className={ styles.title }>{ good.name }</div>
               <div className={ styles.brief }>{ good.description }</div>
               <div className={ styles.brief }>
-                月售{ good.sales_permonth } 剩余{ good.amount } 赞{ good.likes }
+                月售{ good.salesPerMonth } 剩余{ good.remain } 赞{ good.likes }
               </div>
               <div className={ styles.price_container }>
                 <div className={ styles.price }>{ good.price }</div>
@@ -93,8 +93,8 @@ export default class TreeList extends React.Component<ITreeListProps> {
 
   @action
   handleClickFilter: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (e.currentTarget.dataset.tag) {
-      this.filter = e.currentTarget.dataset.tag === 'all' ? 'all' : Number.parseInt(e.currentTarget.dataset.tag);
+    if (e.currentTarget.dataset.category) {
+      this.filter = e.currentTarget.dataset.category === 'all' ? 'all' : e.currentTarget.dataset.category;
     }
   }
 

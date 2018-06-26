@@ -44,7 +44,7 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
     return $orders!.current && (
       <List renderHeader={ header }>
         <List.Item extra={ `${match.params.id}号` }>订单编号</List.Item>
-        <List.Item extra={ `${$orders!.current!.table_num}号桌` }>餐桌号</List.Item>
+        <List.Item extra={ `${$orders!.current!.table}号桌` }>餐桌号</List.Item>
       </List>
     );
   }

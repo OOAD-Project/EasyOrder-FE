@@ -14,10 +14,12 @@ interface IAppLayout extends RouteConfigComponentProps<{}> {
 @observer
 export default class AppLayout extends React.Component<IAppLayout> {
 
-  componentDidMount() {
+  async componentDidMount() {
     stores.$global.setTable(
-      Math.floor(1 + Math.random() * 10)
+      Math.floor(1 + Math.random() * 10).toString()
     );
+
+    await stores.$global.LoadShopAsync();
   }
 
   render() {

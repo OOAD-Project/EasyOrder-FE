@@ -16,10 +16,10 @@ export default {
     '@': resolve(__dirname, 'src'),
   },
   proxy: {
-    '/api': {
-      'target': 'https://149.28.53.135',
-      secure: false,
-      'changeOrigin': true
-    }
+    // '/api': {
+    //   'target': 'http://192.168.191.2',
+    //   secure: false,
+    //   'changeOrigin': true
+    // }
   }
 }

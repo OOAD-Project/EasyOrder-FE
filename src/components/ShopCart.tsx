@@ -77,8 +77,8 @@ export default class ShopCart extends React.Component<IShopCartProps> {
     }
   }
 
-  getHandleClickCountSetter: (id: number, count: number) =>
-    MouseEventHandler<HTMLSpanElement> = (id: number, count: number) => (e) => {
+  getHandleClickCountSetter: (id: string, count: number) =>
+    MouseEventHandler<HTMLSpanElement> = (id: string, count: number) => (e) => {
     const { $cart } = this.props;
     $cart!.setCount(id, count);
   }

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "1",
+    "name": "原味牛杂面",
+    "price": 17,
+    "category": "粉面",
+    "description": "粉面自由选择，备注即可！",
+    "imageUrl":
+      "https://fuss10.elemecdn.com/3/a3/aed6124612ad38457e8e369d7e54bjpeg.jpeg",
+    "salesPerMonth": 770,
+    "rate": 4.5,
+    "likes": 8,
+    "remain": 50
+  },
+  {
+    "id": "2",
+    "name": "素粉面",
+    "price": 15,
+    "category": "粉面",
+    "description": "粉面自由选择，备注即可！",
+    "imageUrl":
+      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530038258890&di=90ac1b1ae30f25ef5f83c2a021afbb67&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141103%2Fshuizhuxiangdoufumeishi_3378663_small.jpg",
+    "salesPerMonth": 430,
+    "rate": 4.3,
+    "likes": 83,
+    "remain": 56
+  },
+  {
+    "id": "3",
+    "name": "红烧肉",
+    "price": 33,
+    "category": "主食",
+    "description": "东坡红烧肉超级好吃",
+    "imageUrl":
+      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530038275445&di=744a62e2622183b9cf17dc0bb3374d2c&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141218%2Faomenshaoroumeishi_3535800_small.jpg",
+    "salesPerMonth": 40,
+    "rate": 4.4,
+    "likes": 84,
+    "remain": 22
+  },
+  {
+    "id": "4",
+    "name": "黄金虾仁",
+    "price": 23,
+    "category": "点心",
+    "description": "金黄脆皮",
+    "imageUrl":
+      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530038394783&di=51774bba408218655552e62fca8f43d7&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141128%2Fsuanlaguangdumeishi_3489927_small.jpg",
+    "salesPerMonth": 20,
+    "rate": 4.2,
+    "likes": 22,
+    "remain": 33
+  },
+  {
+    "id": "5",
+    "name": "另类原味牛杂面",
+    "price": 17,
+    "category": "粉面",
+    "description": "粉面自由选择，备注即可！",
+    "imageUrl":
+      "https://fuss10.elemecdn.com/3/a3/aed6124612ad38457e8e369d7e54bjpeg.jpeg",
+    "salesPerMonth": 770,
+    "rate": 4.5,
+    "likes": 8,
+    "remain": 50
+  },
+  {
+    "id": "6",
+    "name": "另类素粉面",
+    "price": 15,
+    "category": "粉面",
+    "description": "粉面自由选择，备注即可！",
+    "imageUrl":
+      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530038258890&di=90ac1b1ae30f25ef5f83c2a021afbb67&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141103%2Fshuizhuxiangdoufumeishi_3378663_small.jpg",
+    "salesPerMonth": 430,
+    "rate": 4.3,
+    "likes": 83,
+    "remain": 56
+  },
+  {
+    "id": "7",
+    "name": "激爽红烧肉",
+    "price": 33,
+    "category": "主食",
+    "description": "东坡红烧肉超级好吃",
+    "imageUrl":
+      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530038275445&di=744a62e2622183b9cf17dc0bb3374d2c&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141218%2Faomenshaoroumeishi_3535800_small.jpg",
+    "salesPerMonth": 40,
+    "rate": 4.4,
+    "likes": 84,
+    "remain": 22
+  },
+  {
+    "id": "8",
+    "name": "无敌黄金虾仁",
+    "price": 23,
+    "category": "点心",
+    "description": "金黄脆皮",
+    "imageUrl":
+      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530038394783&di=51774bba408218655552e62fca8f43d7&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141128%2Fsuanlaguangdumeishi_3489927_small.jpg",
+    "salesPerMonth": 20,
+    "rate": 4.2,
+    "likes": 22,
+    "remain": 33
+  }
+]

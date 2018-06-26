@@ -1,11 +1,11 @@
-declare module '*.jpg' {
+declare module "*.jpg" {
   const content: string;
   export default content;
 }
 
-declare module '*.less' {
+declare module "*.less" {
   const content: {
-    [key: string]: string
+    [key: string]: string;
   };
   export default content;
 }

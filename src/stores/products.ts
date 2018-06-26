@@ -2,19 +2,18 @@ import request from '@/utils/request';
 import { AxiosResponse } from 'axios';
 import { flow, types } from 'mobx-state-tree';
 
-export const Product = types
-  .model('Product', {
-    id: types.identifier(types.number),
-    name: types.string,
-    picture: types.string,
-    price: types.number,
-    description: types.string,
-    rating: types.number,
-    amount: types.number,
-    likes: types.number,
-    tag_id: types.number,
-    sales_permonth: types.number
-  });
+export const Product = types.model('Product', {
+  id: types.identifier(types.string),
+  name: types.string,
+  price: types.number,
+  category: types.string,
+  description: types.string,
+  imageUrl: types.string,
+  salesPerMonth: types.number,
+  rate: types.number,
+  likes: types.number,
+  remain: types.number
+});
 
 export type ProductType = typeof Product.Type;
 
@@ -23,19 +22,24 @@ export const Products = types
     products: types.array(Product)
   })
   .views((self) => ({
-    get tagIds(): number[] {
-      const dict = self.products.reduce((acc: { [ k: number ]: boolean }, product: ProductType) => {
-        acc[ product.tag_id ] = true;
-        return acc;
-      }, {});
-      return Object.keys(dict).map((key) => Number(key));
+    get categories(): string[] {
+      const dict = self.products.reduce(
+        (acc: { [k: string]: boolean }, product: ProductType) => {
+          acc[product.category] = true;
+          return acc;
+        },
+        {}
+      );
+      return Object.keys(dict);
     }
   }))
   .actions((self) => ({
     LoadProductsAsync: flow(function* LoadCoursesAsync() {
-      const { data }: AxiosResponse<{ result: ProductType[] }> = yield request.get('/products');
+      const { data }: AxiosResponse<ProductType[]> = yield request.get(
+        '/products'
+      );
       self.products.clear();
-      self.products.push(...data.result);
+      self.products.push(...data);
     })
   }));
 

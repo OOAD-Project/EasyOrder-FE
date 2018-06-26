@@ -70,9 +70,9 @@ export default class Order extends React.Component<IOrderProps> {
   handleClickSubmitOrder: MouseEventHandler<HTMLElement> = async (e) => {
     const { $cart, $global, $orders } = this.props;
     if ($cart!.list.length && $global!.table) {
-      const data: { reservation_id: number } = await $orders!.CreateOrderAsync($cart!.orderBody($global!.table!));
-      if (data && data.reservation_id) {
-        router.push(`/order/${data.reservation_id}`);
+      const data: { id: string } = await $orders!.CreateOrderAsync($cart!.orderBody($global!.table!));
+      if (data && data.id) {
+        router.push(`/order/${data.id}`);
       }
     }
   }

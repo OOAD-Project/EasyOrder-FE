@@ -3,9 +3,12 @@ import { Product, ProductType } from '@/stores/products';
 import { getSnapshot, types } from 'mobx-state-tree';
 
 export const CartItem = types
-  .compose(Product, types.model({
-    count: types.number
-  }))
+  .compose(
+    Product,
+    types.model({
+      count: types.number
+    })
+  )
   .named('CartItem');
 
 export type CartItemType = typeof CartItem.Type;
@@ -16,13 +19,18 @@ export const Cart = types
   })
   .views((self) => ({
     get total(): number {
-      return self.list.reduce((total: number, { price, count }: CartItemType) => total + price * count, 0);
+      return self.list.reduce(
+        (total: number, { price, count }: CartItemType) =>
+          total + price * count,
+        0
+      );
     },
-    orderBody(tableNum: number): OrderBodySnapshotType {
-      const list = self.list.map((cartItem) => getSnapshot(SimpleListItem.create(getSnapshot(cartItem))));
-      console.log('snapshot list', list);
+    orderBody(table: string): OrderBodySnapshotType {
+      const list = self.list.map((cartItem) =>
+        getSnapshot(SimpleListItem.create(getSnapshot(cartItem)))
+      );
       return {
-        table: tableNum,
+        table,
         list
       };
     }
@@ -33,13 +41,15 @@ export const Cart = types
       if (target) {
         target.count += count;
       } else {
-        self.list.push(CartItem.create({
-          ...getSnapshot(product),
-          count
-        }));
+        self.list.push(
+          CartItem.create({
+            ...getSnapshot(product),
+            count
+          })
+        );
       }
     },
-    setCount(targetId: number, count: number) {
+    setCount(targetId: string, count: number) {
       if (count > 0) {
         const target = self.list.find(({ id }) => targetId === id);
         if (target) {
