@@ -9,6 +9,11 @@ export default {
     const target = orders.find(({ id }) => id === request.params.id);
     response.send(target || 404);
   },
+  "GET /api/order": (request, response, next) => {
+    const orders = JSON.parse(fs.readFileSync(url, { encoding: "utf-8" }));
+    const target = orders.find(({ table }) => table === request.query.table_id);
+    response.send(target || 404);
+  },
   "POST /api/order": (request, response, next) => {
     const orders = JSON.parse(fs.readFileSync(url, { encoding: "utf-8" }));
     const total =

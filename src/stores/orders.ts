@@ -80,11 +80,15 @@ export const Orders = types
     ) {
       const {
         data
-      }: AxiosResponse<{ reservation_id: number }> = yield request.post(
+      }: AxiosResponse<{}> = yield request.post(
         '/order',
         getSnapshot(OrderBody.create(body))
       );
       return data;
+    }),
+    FetchTableLatestOrder: flow(function* FetchTableLatestOrder(table: string) {
+      const { data } = yield request.get<OrderSnapShotType>('/order?table_id=' + table);
+      return data as OrderSnapShotType;
     })
   }));
 

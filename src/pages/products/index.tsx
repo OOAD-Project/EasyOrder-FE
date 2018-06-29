@@ -1,5 +1,5 @@
-import logoUrl from '@/assets/images/niuza.jpg';
 import CommentsPage from '@/components/CommentsPage';
+import Mine from '@/components/Mine';
 import SellerOutline from '@/components/SellerOutline';
 import ShopCart from '@/components/ShopCart';
 import TreeList from '@/components/TreeList';
@@ -16,7 +16,7 @@ interface IProducts extends RouteConfigComponentProps<{}> {
   $global?: GlobalType;
 }
 
-const tabs = [{ title: '点菜' }, { title: '评价' }, { title: '商家' }];
+const tabs = [{ title: '点菜' }, { title: '评价' }, { title: '我的' }];
 
 @inject('$products', '$global')
 @observer
@@ -46,7 +46,9 @@ export default class Products extends React.Component<IProducts> {
             <div className={styles.one_tab}>
               <CommentsPage />
             </div>
-            <div className={styles.one_tab}>Content of third tab</div>
+            <div className={styles.one_tab}>
+              <Mine />
+            </div>
           </Tabs>
         </main>
         <ShopCart />
