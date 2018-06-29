@@ -16,7 +16,7 @@ export default class AppLayout extends React.Component<IAppLayout> {
 
   async componentDidMount() {
     stores.$global.setTable(
-      Math.floor(1 + Math.random() * 10).toString()
+      '2' // Math.floor(1 + Math.random() * 10).toString()
     );
 
     await stores.$global.LoadShopAsync();

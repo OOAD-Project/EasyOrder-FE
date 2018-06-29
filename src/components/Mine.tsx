@@ -31,7 +31,7 @@ export default class Mine extends React.Component<IMineProps> {
     }
   }
 
-  handleClickLatestOrder = () => {
+  handleClickLatestOrder = async () => {
     if (this.orderId) {
       router.push(`/order/${this.orderId}`);
     }

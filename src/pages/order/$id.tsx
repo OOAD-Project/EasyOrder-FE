@@ -26,9 +26,10 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
     await $orders!.LoadCurrentOrderAsync(match.params.id);
   }
 
-  handlePayNow = () => {
+  handlePayNow = async () => {
     const { $orders } = this.props;
     if ($orders!.current && $orders!.current!.isPaid === false) {
+      await $orders!.PayAsync('在线支付', $orders!.currentTotal || 0);
       router.push(`/order/${$orders!.current!.id}/result`);
     }
   }

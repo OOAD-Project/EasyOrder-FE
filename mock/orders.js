@@ -34,5 +34,11 @@ export default {
     orders.push(target);
     fs.writeFileSync(url, JSON.stringify(orders), "utf8");
     response.send(target);
+  },
+  "POST /api/payment": (request, response, next) => {
+    response.send({
+      status: Math.random() <= .7,
+      payment_id: Math.floor(Math.random() * 1000000000).toString(16)
+    });
   }
 };

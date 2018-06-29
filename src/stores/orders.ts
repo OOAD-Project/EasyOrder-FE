@@ -34,7 +34,11 @@ export type OrderBodySnapshotType = typeof OrderBody.SnapshotType;
 export const Orders = types
   .model('Orders', {
     current: types.maybe(Order),
-    list: types.array(Order)
+    list: types.array(Order),
+    feedback: types.maybe(types.model({
+      status: types.boolean,
+      payment_id: types.string
+    }))
   })
   .views((self) => ({
     currentFoodList(products: ProductType[]): CartItemType[] {
@@ -89,7 +93,43 @@ export const Orders = types
     FetchTableLatestOrder: flow(function* FetchTableLatestOrder(table: string) {
       const { data } = yield request.get<OrderSnapShotType>('/order?table_id=' + table);
       return data as OrderSnapShotType;
+    }),
+    PayAsync: flow(function* PayAsync(method: string, total: number) {
+      if (self.current) {
+        const { data } = yield request.post<{ status: boolean, payment_id: string }>(`/payment`, {
+          payment_time: formatDate(),
+          payment_way: method,
+          payment_amount: total,
+          reservation_id: self.current.id
+        });
+        const { status, payment_id } = data;
+        if (status) {
+          self.feedback = {
+            status, payment_id
+          };
+        }
+      }
     })
   }));
+
+function formatDate() {
+  const date = new Date();
+
+  // tslint:disable-next-line:one-variable-per-declaration
+  const year = date.getFullYear(),
+    month = date.getMonth() + 1, // 月份是从0开始的
+    day = date.getDate(),
+    hour = date.getHours(),
+    min = date.getMinutes(),
+    sec = date.getSeconds();
+  const newTime = year + '-' +
+    (month < 10 ? '0' + month : month) + '-' +
+    (day < 10 ? '0' + day : day) + ' ' +
+    (hour < 10 ? '0' + hour : hour) + ':' +
+    (min < 10 ? '0' + min : min) + ':' +
+    (sec < 10 ? '0' + sec : sec);
+
+  return newTime;
+}
 
 export type OrdersType = typeof Orders.Type;
