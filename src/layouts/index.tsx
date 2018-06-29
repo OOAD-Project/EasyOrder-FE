@@ -16,7 +16,7 @@ export default class AppLayout extends React.Component<IAppLayout> {
 
   async componentDidMount() {
     stores.$global.setTable(
-      '2' // Math.floor(1 + Math.random() * 10).toString()
+      location.href.replace(/^.*init_table=/, '') || '1' // Math.floor(1 + Math.random() * 10).toString()
     );
 
     await stores.$global.LoadShopAsync();
@@ -24,8 +24,8 @@ export default class AppLayout extends React.Component<IAppLayout> {
 
   render() {
     return (
-      <Provider { ...stores }>
-        { this.props.children }
+      <Provider {...stores}>
+        {this.props.children}
       </Provider>
     );
   }
