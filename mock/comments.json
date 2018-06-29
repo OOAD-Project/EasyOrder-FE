@@ -1,0 +1,18 @@
+{
+  "comment": [
+    {
+      "food_id": "1",
+      "food_name": "原味牛杂面",
+      "rating": 4,
+      "content": "怎么只有这一个菜啊",
+      "comment_time": "2018-06-20 12:00:00"
+    },
+    {
+      "food_id": "2",
+      "food_name": "素粉面",
+      "rating": 3,
+      "content": "随便写写",
+      "comment_time": "2018-06-23 12:10:00"
+    }
+  ]
+}

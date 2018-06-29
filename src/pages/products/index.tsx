@@ -1,4 +1,5 @@
 import logoUrl from '@/assets/images/niuza.jpg';
+import CommentsPage from '@/components/CommentsPage';
 import SellerOutline from '@/components/SellerOutline';
 import ShopCart from '@/components/ShopCart';
 import TreeList from '@/components/TreeList';
@@ -42,7 +43,9 @@ export default class Products extends React.Component<IProducts> {
                 categories={$products!.categories}
               />
             </div>
-            <div className={styles.one_tab}>Content of second tab</div>
+            <div className={styles.one_tab}>
+              <CommentsPage />
+            </div>
             <div className={styles.one_tab}>Content of third tab</div>
           </Tabs>
         </main>

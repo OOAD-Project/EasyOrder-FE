@@ -16,7 +16,7 @@ export default class DetailItems extends React.Component<IDetailItemsProps> {
       return (
         <List.Item
           key={ cartItem.id }
-          thumb={ cartItem.picture }
+          thumb={ cartItem.imageUrl }
           extra={ '￥' + cartItem.count * cartItem.price }
         >
           <span className={ styles.name }>{ cartItem.name }</span>
