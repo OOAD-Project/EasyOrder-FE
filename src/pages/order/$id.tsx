@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteConfigComponentProps } from 'react-router-config';
 import Link from 'umi/link';
+import router from 'umi/router';
 
 interface IOrderWithIdProps extends RouteConfigComponentProps<{ id: string }> {
   $orders?: OrdersType;
@@ -25,15 +26,22 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
     await $orders!.LoadCurrentOrderAsync(match.params.id);
   }
 
+  handlePayNow = () => {
+    const { $orders } = this.props;
+    if ($orders!.current && $orders!.current!.isPaid === false) {
+      router.push(`/order/${$orders!.current!.id}/result`);
+    }
+  }
+
   @computed
   get TopBar() {
     const icon = (
-      <Link to={ '/products' }>
-        <Icon type={ 'left' }/>
+      <Link to={'/products'}>
+        <Icon type={'left'} />
       </Link>
     );
     return (
-      <NavBar mode={ 'light' } icon={ icon }>查看订单</NavBar>
+      <NavBar mode={'light'} icon={icon}>查看订单</NavBar>
     );
   }
 
@@ -42,9 +50,9 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
     const header = () => '基本信息';
     const { $orders, match } = this.props;
     return $orders!.current && (
-      <List renderHeader={ header }>
-        <List.Item extra={ `${match.params.id}号` }>订单编号</List.Item>
-        <List.Item extra={ `${$orders!.current!.table}号桌` }>餐桌号</List.Item>
+      <List renderHeader={header}>
+        <List.Item extra={`${match.params.id}号`}>订单编号</List.Item>
+        <List.Item extra={`${$orders!.current!.table}号桌`}>餐桌号</List.Item>
       </List>
     );
   }
@@ -54,9 +62,9 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
     const header = () => '订单详情';
     const { $orders, $products } = this.props;
     return $orders!.current && (
-      <List renderHeader={ header }>
-        <DetailItems dataSource={ $orders!.currentFoodList($products!.products) }/>
-        <List.Item extra={ `￥${$orders!.currentTotal}` }>合计</List.Item>
+      <List renderHeader={header}>
+        <DetailItems dataSource={$orders!.currentFoodList($products!.products)} />
+        <List.Item extra={`￥${$orders!.currentTotal}`}>合计</List.Item>
       </List>
     );
   }
@@ -68,20 +76,24 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
     if ($orders!.current) {
       const stateText = $orders!.current!.isPaid ? '已支付' : '未支付';
       const button = $orders!.current!.isPaid ? null : (
-        <Button size={ 'small' }>现在支付</Button>
+        <Button
+          size={'small'}
+          onClick={this.handlePayNow}
+        >现在支付
+        </Button>
       );
       return (
-        <List renderHeader={ header }>
+        <List renderHeader={header}>
           <List.Item>
             支付方式
             <List.Item.Brief>
               在线支付
             </List.Item.Brief>
           </List.Item>
-          <List.Item extra={ button }>
+          <List.Item extra={button}>
             支付状态
             <List.Item.Brief>
-              { stateText }
+              {stateText}
             </List.Item.Brief>
           </List.Item>
         </List>
@@ -93,10 +105,10 @@ export default class OrderWithId extends React.Component<IOrderWithIdProps> {
   render() {
     return (
       <div>
-        { this.TopBar }
-        { this.BasicInformation }
-        { this.Detail }
-        { this.Other }
+        {this.TopBar}
+        {this.BasicInformation}
+        {this.Detail}
+        {this.Other}
       </div>
     );
   }
