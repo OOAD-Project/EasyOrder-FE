@@ -2,11 +2,11 @@
   {
     "id": "1080",
     "create_time": "2018-06-08 04:58:51",
-    "pay_time": "2018-06-09 04:58:51",
-    "table": "8",
+    "pay_time": "None",
+    "table": "2",
     "list": [{ "id": "1", "name": "牛杂汤粉面", "count": 2, "price": 17 }],
     "total": 34,
-    "isPaid": true
+    "isPaid": false
   },
   {
     "table": "10",

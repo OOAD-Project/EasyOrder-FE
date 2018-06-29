@@ -103,7 +103,7 @@ export const Orders = types
           reservation_id: self.current.id
         });
         const { status, payment_id } = data;
-        if (status) {
+        if (payment_id) {
           self.feedback = {
             status, payment_id
           };

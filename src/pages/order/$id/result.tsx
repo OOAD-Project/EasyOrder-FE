@@ -76,6 +76,6 @@ export default class PayResult extends React.Component<IPayResultProps> {
         />
         {this.BasicInformation}
       </div>
-    ) || 'null';
+    );
   }
 }
