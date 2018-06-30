@@ -23,10 +23,10 @@ export default class Mine extends React.Component<IMineProps> {
 
   async componentDidMount() {
     const { $orders, $global } = this.props;
-    const { id } = await $orders!.FetchTableLatestOrder($global!.table || '');
-    if (id) {
+    const { reservation_id } = await $orders!.FetchTableLatestOrder($global!.table || '');
+    if (reservation_id) {
       runInAction(() => {
-        this.orderId = id;
+        this.orderId = reservation_id;
       });
     }
   }
