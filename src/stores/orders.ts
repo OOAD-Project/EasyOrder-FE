@@ -6,7 +6,7 @@ import { flow, getSnapshot, types } from 'mobx-state-tree';
 import qs from 'qs';
 
 export const SimpleListItem = types.model('SimpleListItem', {
-  id: types.identifier(types.string),
+  id: types.identifier(types.union(types.string, types.number)),
   name: types.string,
   count: types.number,
   price: types.number
@@ -16,7 +16,7 @@ export const Order = types.model('Order', {
   id: types.identifier(types.string),
   create_time: types.string,
   pay_time: types.string,
-  table: types.string,
+  table: types.union(types.string, types.number),
   list: types.array(SimpleListItem),
   total: types.number,
   isPaid: types.boolean
