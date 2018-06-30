@@ -87,7 +87,7 @@ export const Orders = types
         data
       }: AxiosResponse<{}> = yield request.post(
         '/order',
-        {},
+        getSnapshot(OrderBody.create(body)),
         {
           headers: { 'content-type': 'application/x-www-form-urlencoded' },
           params: getSnapshot(OrderBody.create(body))
@@ -101,7 +101,12 @@ export const Orders = types
     }),
     PayAsync: flow(function* PayAsync(method: string, total: number) {
       if (self.current) {
-        const { data } = yield request.post<{ status: boolean, payment_id: string }>(`/payment`, {},
+        const { data } = yield request.post<{ status: boolean, payment_id: string }>(`/payment`, {
+          payment_time: formatDate(),
+          payment_way: method,
+          payment_amount: total,
+          reservation_id: self.current.id
+        },
           {
             headers: { 'content-type': 'application/x-www-form-urlencoded' },
             params: {

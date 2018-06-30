@@ -29,16 +29,22 @@ export const Comments = types
     LeaveCommentAsync: flow(function* LeaveCommentAsync({
       food_id, food_name, rating, content
     }: { food_id: string, food_name: string, rating: number, content: string }) {
-      yield request.post('/comments', {}, {
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        params: {
-          food_id,
-          food_name,
-          content,
-          rating,
-          comment_time: formatDate()
-        }
-      });
+      yield request.post('/comments', {
+        food_id,
+        food_name,
+        content,
+        rating,
+        comment_time: formatDate()
+      }, {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          params: {
+            food_id,
+            food_name,
+            content,
+            rating,
+            comment_time: formatDate()
+          }
+        });
     })
   }));
 
