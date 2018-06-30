@@ -20,11 +20,11 @@ export const Comments = types
   })
   .actions((self) => ({
     LoadCommentsAsync: flow(function* LoadCommentsAsync() {
-      const { data }: AxiosResponse<{ comment: CommentSnapshotType[] }> = yield request.get(
+      const { data }: AxiosResponse<{ comments: CommentSnapshotType[] }> = yield request.get(
         '/comments'
       );
       self.list.clear();
-      self.list.push(...(data && data.comment || []).map((one) => Comment.create(one)));
+      self.list.push(...(data && data.comments || []).map((one) => Comment.create(one)));
     })
   }));
 
