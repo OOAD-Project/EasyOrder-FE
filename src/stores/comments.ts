@@ -25,7 +25,41 @@ export const Comments = types
       );
       self.list.clear();
       self.list.push(...(data && data.comments || []).map((one) => Comment.create(one)));
+    }),
+    LeaveCommentAsync: flow(function* LeaveCommentAsync({
+      food_id, food_name, rating, content
+    }: { food_id: string, food_name: string, rating: number, content: string }) {
+      yield request.post('/comments', {}, {
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        params: {
+          food_id,
+          food_name,
+          content,
+          rating,
+          comment_time: formatDate()
+        }
+      });
     })
   }));
+
+function formatDate() {
+  const date = new Date();
+
+  // tslint:disable-next-line:one-variable-per-declaration
+  const year = date.getFullYear(),
+    month = date.getMonth() + 1, // 月份是从0开始的
+    day = date.getDate(),
+    hour = date.getHours(),
+    min = date.getMinutes(),
+    sec = date.getSeconds();
+  const newTime = year + '-' +
+    (month < 10 ? '0' + month : month) + '-' +
+    (day < 10 ? '0' + day : day) + ' ' +
+    (hour < 10 ? '0' + hour : hour) + ':' +
+    (min < 10 ? '0' + min : min) + ':' +
+    (sec < 10 ? '0' + sec : sec);
+
+  return newTime;
+}
 
 export type CommentsType = typeof Comments.Type;

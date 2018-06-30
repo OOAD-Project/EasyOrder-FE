@@ -9,9 +9,9 @@ export default {
     const target = orders.find(({ id }) => id === request.params.id);
     response.send(target || 404);
   },
-  "GET /api/order": (request, response, next) => {
+  "GET /api/order_by_table": (request, response, next) => {
     const orders = JSON.parse(fs.readFileSync(url, { encoding: "utf-8" }));
-    const target = orders.find(({ table }) => table === request.query.table_id);
+    const target = orders.find(({ table }) => table === request.params.table_id);
     response.send(target || 404);
   },
   "POST /api/order": (request, response, next) => {
@@ -24,7 +24,7 @@ export default {
         )) ||
       0;
     const target = {
-      ...request.body,
+      ...request.query,
       id: (orders.length + 1).toString(),
       create_time: new Date().toString(),
       pay_time: "None",

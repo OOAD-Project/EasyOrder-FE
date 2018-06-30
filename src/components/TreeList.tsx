@@ -1,20 +1,23 @@
 import { CartType } from '@/stores/cart';
+import { CommentsType } from '@/stores/comments';
 import { ProductType } from '@/stores/products';
-import { List, SearchBar } from 'antd-mobile';
+import { List, Modal, SearchBar, Toast } from 'antd-mobile';
 import { action, computed, observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React, { MouseEventHandler } from 'react';
 import styles from './TreeList.less';
 
+const prompt = Modal.prompt;
 const Item = List.Item;
 
 interface ITreeListProps {
   dataSource: ProductType[];
   categories: string[];
   $cart?: CartType;
+  $comments?: CommentsType;
 }
 
-@inject('$cart')
+@inject('$cart', '$comments')
 @observer
 export default class TreeList extends React.Component<ITreeListProps> {
 
@@ -39,56 +42,73 @@ export default class TreeList extends React.Component<ITreeListProps> {
   get Categories() {
     const { categories } = this.props;
     const base = categories.map((category) => (
-      <Item key={ category }>
+      <Item key={category}>
         <div
-          data-category={ category }
-          className={ styles.tagId }
-          onClick={ this.handleClickFilter }
-        >{ category }
+          data-category={category}
+          className={styles.tagId}
+          onClick={this.handleClickFilter}
+        >{category}
         </div>
       </Item>
     ));
     const list = [
       (
-        <Item key={ 'all' }>
+        <Item key={'all'}>
           <div
-            data-category={ 'all' }
-            className={ styles.tagId }
-            onClick={ this.handleClickFilter }
-          >{ '全部' }
+            data-category={'all'}
+            className={styles.tagId}
+            onClick={this.handleClickFilter}
+          >{'全部'}
           </div>
         </Item>
       ),
       ...base
     ];
-    return (<List>{ list }</List>);
+    return (<List>{list}</List>);
   }
 
   @computed
   get Products() {
     const list = this.data.map((good) => {
+
+      const onClick = () => {
+        prompt('添加评论', `您觉得 ${good.name} 如何？`, [
+          { text: '取消' },
+          {
+            text: '提交', onPress: async (content?: string) => {
+              await this.props.$comments!.LeaveCommentAsync({
+                food_id: good.id,
+                food_name: good.name,
+                rating: 4,
+                content: content || '默认好评'
+              });
+            }
+          }
+        ]);
+      };
+
       return (
-        <Item key={ good.id } align={ 'top' } multipleLine={ true }>
-          <div className={ styles.meta }>
-            <div className={ styles.product_img }>
-              <img src={ good.imageUrl } alt={ good.name }/>
+        <Item key={good.id} align={'top'} multipleLine={true}>
+          <div className={styles.meta}>
+            <div className={styles.product_img} onClick={onClick}>
+              <img src={good.imageUrl} alt={good.name} />
             </div>
-            <div className={ styles.content }>
-              <div className={ styles.title }>{ good.name }</div>
-              <div className={ styles.brief }>{ good.description }</div>
-              <div className={ styles.brief }>
-                月售{ good.salesPerMonth } 剩余{ good.remain } 赞{ good.likes }
+            <div className={styles.content}>
+              <div className={styles.title}>{good.name}</div>
+              <div className={styles.brief}>{good.description}</div>
+              <div className={styles.brief}>
+                月售{good.salesPerMonth} 剩余{good.remain} 赞{good.likes}
               </div>
-              <div className={ styles.price_container }>
-                <div className={ styles.price }>{ good.price }</div>
-                <div className={ styles.plus } onClick={ this.handleClickAdd(good) }>+</div>
+              <div className={styles.price_container}>
+                <div className={styles.price}>{good.price}</div>
+                <div className={styles.plus} onClick={this.handleClickAdd(good)}>+</div>
               </div>
             </div>
           </div>
         </Item>
       );
     });
-    return (<List>{ list }</List>);
+    return (<List>{list}</List>);
   }
 
   @action
@@ -110,18 +130,18 @@ export default class TreeList extends React.Component<ITreeListProps> {
 
   render() {
     return (
-      <div className={ styles.container }>
+      <div className={styles.container}>
         <SearchBar
-          placeholder={ '寻找美食' }
-          value={ this.searchText }
-          onChange={ this.handleChangeSearchText }
+          placeholder={'寻找美食'}
+          value={this.searchText}
+          onChange={this.handleChangeSearchText}
         />
-        <div className={ styles.list }>
-          <div className={ styles.left }>
-            { this.Categories }
+        <div className={styles.list}>
+          <div className={styles.left}>
+            {this.Categories}
           </div>
-          <div className={ styles.right }>
-            { this.Products }
+          <div className={styles.right}>
+            {this.Products}
           </div>
         </div>
       </div>

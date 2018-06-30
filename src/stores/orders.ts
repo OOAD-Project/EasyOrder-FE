@@ -3,6 +3,7 @@ import { ProductType } from '@/stores/products';
 import request from '@/utils/request';
 import { AxiosResponse } from 'axios';
 import { flow, getSnapshot, types } from 'mobx-state-tree';
+import qs from 'qs';
 
 export const SimpleListItem = types.model('SimpleListItem', {
   id: types.identifier(types.string),
@@ -86,22 +87,30 @@ export const Orders = types
         data
       }: AxiosResponse<{}> = yield request.post(
         '/order',
-        getSnapshot(OrderBody.create(body))
+        {},
+        {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          params: getSnapshot(OrderBody.create(body))
+        }
       );
       return data;
     }),
     FetchTableLatestOrder: flow(function* FetchTableLatestOrder(table: string) {
-      const { data } = yield request.get<OrderSnapShotType>('/order?table_id=' + table);
+      const { data } = yield request.get<OrderSnapShotType>('/order_by_table/' + table);
       return data as OrderSnapShotType;
     }),
     PayAsync: flow(function* PayAsync(method: string, total: number) {
       if (self.current) {
-        const { data } = yield request.post<{ status: boolean, payment_id: string }>(`/payment`, {
-          payment_time: formatDate(),
-          payment_way: method,
-          payment_amount: total,
-          reservation_id: self.current.id
-        });
+        const { data } = yield request.post<{ status: boolean, payment_id: string }>(`/payment`, {},
+          {
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            params: {
+              payment_time: formatDate(),
+              payment_way: method,
+              payment_amount: total,
+              reservation_id: self.current.id
+            }
+          });
         const { status, payment_id } = data;
         if (payment_id) {
           self.feedback = {
@@ -112,9 +121,7 @@ export const Orders = types
     })
   }));
 
-function formatDate() {
-  const date = new Date();
-
+function formatDate(date = new Date()) {
   // tslint:disable-next-line:one-variable-per-declaration
   const year = date.getFullYear(),
     month = date.getMonth() + 1, // 月份是从0开始的
